@@ -1,0 +1,96 @@
+https://www.bezkoder.com/spring-boot-graphql-mongodb-example-graphql-java/
+
+add dependency with version as below:
+Spring Boot 2.2.1.RELEASE (with Spring Web, Spring Data MongoDB)
+graphql-spring-boot-starter 5.0.2
+graphql-java-tools 5.2.4
+
+to change the default mapping of graphql from /graphql , add :
+graphql.servlet.mapping: /apis/graphql
+
+create graphqls in src/main/resources/graphql
+- type Query and type Mutation
+-extend Query and extend Mutation
+
+define 2 classes with @Document
+
+define a class which implements GraphQLQueryResolver 
+and a class which implements GraphQLMutationResolver
+and a class which implements GraphQLResolver<Tutorial> -- to implement one to many mapping variable
+
+
+Queries to execute:
+1) mutation {
+  createAuthor(
+    name: "bezkoder",
+    age: 27) 
+    {
+      id name
+  	}
+}
+
+2)mutation {
+  createTutorial (
+    title: "Tutorial #1",
+    description: "Tut#1 Description"
+    author: "62e2678eadd86535b5da8889")
+    {
+      id title author { name }
+    }
+}
+
+3){
+  findAllAuthors{
+    id
+    name
+    age
+  }
+}
+
+
+4) {
+  findAllTutorials{
+    id
+    title
+    description
+    author{
+      id
+      name
+    }
+  }
+}
+
+5)mutation {
+  updateTutorial (
+    id: "62e2408f6e161a376a3d6cac"
+    description: "Tut#2 updated Desc")
+    {
+      id title description author { name }
+    }
+}
+
+6)mutation {
+  deleteTutorial(id: "5dd764a0572b4b0f3fc558c7")
+}
+
+7){
+  countTutorials
+}
+
+
+NOTE:
+mutation query is like :
+mutation{
+	name_of_the_query(
+		parameter:"value"
+		)
+		{ return objects}
+		}
+		
+
+normal queries:
+{
+name_of_the_query{
+	return objects
+	}
+}
